@@ -1,0 +1,28 @@
+{
+  "workshops": [
+    {
+      "id": "workshop-1",
+      "title": "Workshop 1",
+      "slug": "workshop-1",
+      "description": "Your content goes here.",
+      "emoji": "🎨",
+      "updatedAt": "2026-02-26T00:00:00.000Z"
+    },
+    {
+      "id": "workshop-2",
+      "title": "Workshop 2",
+      "slug": "workshop-2",
+      "description": "Your content goes here.",
+      "emoji": "✨",
+      "updatedAt": "2026-02-26T00:00:00.000Z"
+    },
+    {
+      "id": "workshop-3",
+      "title": "Workshop 3",
+      "slug": "workshop-3",
+      "description": "Your content goes here.",
+      "emoji": "🌟",
+      "updatedAt": "2026-02-26T00:00:00.000Z"
+    }
+  ]
+}

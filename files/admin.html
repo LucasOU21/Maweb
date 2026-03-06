@@ -1,0 +1,492 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Event | Maweb Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --sidebar: #0c0c0c;
+      --card: #111;
+      --accent: #8b5cf6;
+      --accent-dim: rgba(139, 92, 246, 0.12);
+      --text: #f0ece4;
+      --text-dim: #888;
+      --muted: #555;
+      --border: #1a1a1a;
+      --input-bg: #0f0f0f;
+      --danger: #e85a5a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: var(--sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .logo-sub {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+
+    .nav-section {
+      padding: 1rem 0;
+    }
+
+    .nav-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0.5rem 1.5rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .nav-item:hover {
+      background: var(--card);
+      color: var(--text);
+    }
+
+    .nav-item.active {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-right: 2px solid var(--accent);
+    }
+
+    .nav-item svg {
+      width: 18px;
+      height: 18px;
+      opacity: 0.7;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+    }
+
+    .logout-btn:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      margin-left: 260px;
+      padding: 2rem;
+      max-width: 900px;
+    }
+
+    .page-header {
+      margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    /* Form */
+    .form-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .field {
+      margin-bottom: 1.4rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.75rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .generate-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      cursor: pointer;
+      width: 100%;
+      transition: opacity 0.2s;
+    }
+
+    .generate-btn:hover {
+      opacity: 0.85;
+    }
+
+    /* Output */
+    .output-section {
+      display: none;
+      margin-top: 1.5rem;
+    }
+
+    .output-section.visible {
+      display: block;
+    }
+
+    .output-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .json-preview {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: #9be;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 260px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+
+    .download-btn {
+      display: inline-block;
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .download-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .instructions {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 1.25rem 1.5rem;
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: #aaa;
+    }
+
+    .instructions strong {
+      color: var(--text);
+    }
+
+    .back-link {
+      margin-bottom: 1.5rem;
+    }
+
+    .back-link a {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .back-link a:hover {
+      color: var(--accent);
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      .main {
+        margin-left: 0;
+      }
+      .row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">Ma<span>web</span></div>
+      <div class="logo-sub">Admin Panel</div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Overview</div>
+      <a class="nav-item" href="dashboard.html">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+        Dashboard
+      </a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Content</div>
+      <a class="nav-item active" href="admin.html">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        Manage Event
+      </a>
+      <a class="nav-item" href="workshop-admin.html">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+        Manage Workshops
+      </a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Site</div>
+      <a class="nav-item" href="../index.html" target="_blank">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+        View Live Site
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="logout()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+        Sign Out
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="back-link"><a href="dashboard.html">&larr; Back to Dashboard</a></div>
+    
+    <div class="page-header">
+      <h1>Update Event</h1>
+      <p>Fill in the details below, download the JSON, then upload to your server.</p>
+    </div>
+
+    <div class="form-card">
+      <div class="field">
+        <label>Event Title *</label>
+        <input type="text" id="title" placeholder="e.g. Summer Rooftop Night" />
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Date *</label>
+          <input type="text" id="date" placeholder="e.g. Saturday, March 1" />
+        </div>
+        <div class="field">
+          <label>Time</label>
+          <input type="text" id="time" placeholder="e.g. 7:00 PM &ndash; 11:00 PM" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Location</label>
+          <input type="text" id="location" placeholder="e.g. The Warehouse, NYC" />
+        </div>
+        <div class="field">
+          <label>Price / Tickets</label>
+          <input type="text" id="price" placeholder="e.g. $15 / Free" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Description *</label>
+        <textarea id="description" placeholder="Describe the event..."></textarea>
+      </div>
+      <div class="field">
+        <label>Image URL (optional)</label>
+        <input type="text" id="image" placeholder="https://... (leave blank to use emoji instead)" />
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Emoji (if no image)</label>
+          <input type="text" id="emoji" placeholder="&#x1F389;" />
+        </div>
+        <div class="field">
+          <label>CTA Button Label</label>
+          <input type="text" id="ctaLabel" placeholder="e.g. Get Tickets" />
+        </div>
+      </div>
+      <div class="field">
+        <label>CTA Button URL</label>
+        <input type="text" id="ctaUrl" placeholder="https://..." />
+      </div>
+
+      <button class="generate-btn" onclick="generateJSON()">Generate events.json &rarr;</button>
+    </div>
+
+    <div class="output-section" id="output">
+      <div class="output-label">Generated JSON &mdash; ready to upload</div>
+      <div class="json-preview" id="jsonPreview"></div>
+      <a class="download-btn" id="downloadBtn" download="events.json">&#x2B07; Download events.json</a>
+    </div>
+
+    <div class="instructions">
+      <strong>How to update your event page:</strong><br/>
+      1. Fill in the form and click Generate<br/>
+      2. Download the <strong>events.json</strong> file<br/>
+      3. Upload it to the <strong>files/</strong> folder on your web server<br/>
+      4. Your event page will now show the new event &mdash; no code editing needed &#x2713;
+    </div>
+  </main>
+
+  <script>
+    // Check authentication
+    if (!sessionStorage.getItem('maweb_admin_logged_in')) {
+      window.location.href = 'login.html';
+    }
+
+    function logout() {
+      sessionStorage.removeItem('maweb_admin_logged_in');
+      window.location.href = 'login.html';
+    }
+
+    function generateJSON() {
+      const title = document.getElementById('title').value.trim();
+      const description = document.getElementById('description').value.trim();
+
+      if (!title || !description) {
+        alert('Please fill in at least the title and description.');
+        return;
+      }
+
+      const data = {
+        title,
+        date: document.getElementById('date').value.trim() || null,
+        time: document.getElementById('time').value.trim() || null,
+        location: document.getElementById('location').value.trim() || null,
+        price: document.getElementById('price').value.trim() || null,
+        description,
+        image: document.getElementById('image').value.trim() || null,
+        emoji: document.getElementById('emoji').value.trim() || '\uD83C\uDF89',
+        ctaLabel: document.getElementById('ctaLabel').value.trim() || null,
+        ctaUrl: document.getElementById('ctaUrl').value.trim() || null,
+        updatedAt: new Date().toISOString()
+      };
+
+      // Remove null values
+      Object.keys(data).forEach(k => data[k] === null && delete data[k]);
+
+      const json = JSON.stringify(data, null, 2);
+      document.getElementById('jsonPreview').textContent = json;
+
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const dl = document.getElementById('downloadBtn');
+      dl.href = url;
+
+      document.getElementById('output').classList.add('visible');
+      document.getElementById('output').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
+
+
