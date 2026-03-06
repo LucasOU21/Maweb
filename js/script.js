@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initHeroParallax();
     initMobileEventsAccordion();
-    initMobileStickyCta();
 });
 
 /**
@@ -206,20 +205,4 @@ function initMobileEventsAccordion() {
     window.addEventListener('resize', syncAccordionState);
 }
 
-/**
- * Sticky mobile CTA for quick contact actions
- */
-function initMobileStickyCta() {
-    if (document.querySelector('.mobile-sticky-cta')) return;
-
-    const cta = document.createElement('div');
-    cta.className = 'mobile-sticky-cta';
-    cta.innerHTML = `
-        <a class="primary" href="contact.html">Book Session</a>
-        <a class="secondary" href="tel:6173209442">Call Now</a>
-    `;
-
-    document.body.appendChild(cta);
-    document.body.classList.add('has-mobile-cta');
-}
 

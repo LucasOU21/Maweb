@@ -1276,44 +1276,6 @@ footer {
     color: var(--color-text-light);
 }
 
-.mobile-sticky-cta {
-    position: fixed;
-    left: 1rem;
-    right: 1rem;
-    bottom: 0.75rem;
-    z-index: 1200;
-    display: none;
-    gap: 0.65rem;
-    padding: 0.6rem;
-    border: 1px solid rgba(123, 75, 198, 0.2);
-    border-radius: 14px;
-    background: rgba(255, 253, 249, 0.95);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 8px 28px rgba(123, 75, 198, 0.18);
-}
-
-.mobile-sticky-cta a {
-    flex: 1;
-    text-align: center;
-    font-size: 0.74rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.75rem 0.65rem;
-    border-radius: 8px;
-}
-
-.mobile-sticky-cta .primary {
-    background: var(--color-accent);
-    color: #fff;
-}
-
-.mobile-sticky-cta .secondary {
-    border: 1px solid rgba(123, 75, 198, 0.35);
-    color: var(--color-accent-dark);
-    background: rgba(123, 75, 198, 0.05);
-}
-
 /* ========================================
    RESPONSIVE DESIGN
    ======================================== */
@@ -1431,13 +1393,6 @@ footer {
         margin-top: 0.25rem;
     }
 
-    body.has-mobile-cta {
-        padding-bottom: 5.8rem;
-    }
-
-    .mobile-sticky-cta {
-        display: flex;
-    }
 }
 
 @media (max-width: 480px) {
