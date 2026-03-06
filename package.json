@@ -1,0 +1,13 @@
+{
+  "name": "aum-healing-center",
+  "version": "1.0.0",
+  "description": "AUM Healing Center - Holistic Consciousness Development Website",
+  "scripts": {
+    "start": "echo 'Static site - use local server'",
+    "build": "echo 'No build required'"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "private": true
+}
