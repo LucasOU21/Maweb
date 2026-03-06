@@ -1466,5 +1466,21 @@ footer {
         height: 90px;
         font-size: 2.25rem;
     }
+
+    /* Hide fixed bottom call/book buttons on mobile */
+    [class*="call-"],
+    [class*="book-"],
+    [class*="sticky-"],
+    [class*="floating-"],
+    [class*="mobile-cta"],
+    [class*="bottom-bar"],
+    [class*="float-btn"],
+    a[href^="tel:"],
+    a[href^="tel:"] span,
+    .fixed-bottom,
+    .mobile-call-btn,
+    .mobile-book-btn {
+        display: none !important;
+    }
 }
 
